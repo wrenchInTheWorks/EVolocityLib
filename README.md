@@ -1,6 +1,6 @@
 # EVolocityArduino
 
-The official Arduino library for the [EVolocity](https://www.evolocity.com.au) solar car student challenge.
+The official Arduino library for the [EVolocity](https://evolocity.co.nz/) solar car student challenge.
 
 EVolocity runs competitive engineering events where students design, build, and race solar-powered vehicles. This library provides the Arduino building blocks for those vehicles — one install covers all EVolocity hardware projects so students never need to manage multiple libraries.
 
