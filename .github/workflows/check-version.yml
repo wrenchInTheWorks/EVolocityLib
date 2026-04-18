@@ -1,0 +1,46 @@
+name: Check Version Bump
+
+# Runs on every PR targeting master.
+# Fails if the version in library.properties has not been changed,
+# reminding the author to bump it before merging.
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  check-version:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # needed to read master's library.properties
+
+      - name: Get version on master
+        id: master
+        run: |
+          VERSION=$(git show origin/master:library.properties \
+            | grep '^version=' | cut -d'=' -f2 | tr -d '[:space:]')
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Get version on this branch
+        id: branch
+        run: |
+          VERSION=$(grep '^version=' library.properties \
+            | cut -d'=' -f2 | tr -d '[:space:]')
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Fail if version has not been bumped
+        run: |
+          MASTER="${{ steps.master.outputs.version }}"
+          BRANCH="${{ steps.branch.outputs.version }}"
+          if [ "$MASTER" = "$BRANCH" ]; then
+            echo "Version in library.properties has not been bumped."
+            echo "  master : $MASTER"
+            echo "  branch : $BRANCH"
+            echo "Please update the version field before merging (e.g. $MASTER -> x.y.z)."
+            exit 1
+          else
+            echo "Version bumped: $MASTER -> $BRANCH"
+          fi
