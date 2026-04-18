@@ -1,4 +1,4 @@
-# Contributing to EVolocityArduino
+# Contributing to EVolocityLib
 
 ## Branching
 
@@ -35,6 +35,6 @@ Bump the `version` field in `library.properties` as part of your PR. The release
 ## Adding a New Class
 
 1. Create `src/ClassName.h` and `src/ClassName.cpp`
-2. Add `#include "ClassName.h"` to `src/EVolocityArduino.h`
+2. Add `#include "ClassName.h"` to `src/EVolocityLib.h`
 3. Add at least one example under `examples/ClassNameBasicUsage/ClassNameBasicUsage.ino`
 4. Add the class and its public methods to `keywords.txt`

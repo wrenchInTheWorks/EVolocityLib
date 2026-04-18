@@ -1,4 +1,4 @@
-# EVolocityArduino
+# EVolocityLib
 
 The official Arduino library for the [EVolocity](https://evolocity.co.nz/) solar car student challenge.
 
@@ -22,7 +22,7 @@ Open the Arduino IDE, go to **Sketch → Include Library → Manage Libraries** 
 |---------|---------|
 | RF24 | latest |
 
-### 2. Install EVolocityArduino
+### 2. Install EVolocityLib
 
 Download the latest release ZIP from the [Releases page](../../releases/latest).
 
@@ -30,7 +30,7 @@ Then in the Arduino IDE go to **Sketch → Include Library → Add .ZIP Library*
 
 ### 3. Open an example
 
-Go to **File → Examples → EVolocityArduino** and choose the example for your project. Each example has comments explaining every line.
+Go to **File → Examples → EVolocityLib** and choose the example for your project. Each example has comments explaining every line.
 
 ---
 
