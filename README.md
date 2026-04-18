@@ -16,18 +16,11 @@ EVolocity runs competitive engineering events where students design, build, and 
 
 ### 1. Install dependencies
 
-**Option A — script (recommended):** Run the script for your operating system from the `tools/` folder. No extra tools required — it downloads everything automatically.
-
-- **Windows:** double-click `tools/install-dependencies.bat`
-- **Mac / Linux:** run `bash tools/install-dependencies.sh` in a terminal
-
-**Option B — manually:** Open the Arduino IDE, go to **Sketch → Include Library → Manage Libraries** and install:
+Open the Arduino IDE, go to **Sketch → Include Library → Manage Libraries** and install:
 
 | Library | Version |
 |---------|---------|
 | RF24 | latest |
-
-> Once this library is available through the Arduino Library Manager, dependencies will install automatically and this step won't be needed.
 
 ### 2. Install EVolocityArduino
 
