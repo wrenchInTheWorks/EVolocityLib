@@ -4,13 +4,30 @@ The official Arduino library for the [EVolocity](https://evolocity.co.nz/) solar
 
 EVolocity runs competitive engineering events where students design, build, and race solar-powered vehicles. This library provides the Arduino building blocks for those vehicles — one install covers all EVolocity hardware projects so students never need to manage multiple libraries.
 
+## Projects
+
+| Project | Description |
+|---------|-------------|
+| RC Car Challenge | Students build and program a radio-controlled car using the `RCChassis` class |
+
 ---
 
 ## Getting Started
 
-### 1. Install the RF24 dependency
+### 1. Install dependencies
 
-Open the Arduino IDE, go to **Sketch → Include Library → Manage Libraries**, search for **RF24** and install it.
+**Option A — script (recommended):** If you have the [Arduino CLI](https://arduino.github.io/arduino-cli/latest/installation/) installed, run the script for your operating system from the `tools/` folder:
+
+- **Windows:** double-click `tools/install-dependencies.bat`
+- **Mac / Linux:** run `bash tools/install-dependencies.sh` in a terminal
+
+**Option B — manually:** Open the Arduino IDE, go to **Sketch → Include Library → Manage Libraries** and install:
+
+| Library | Version |
+|---------|---------|
+| RF24 | latest |
+
+> Once this library is available through the Arduino Library Manager, dependencies will install automatically and this step won't be needed.
 
 ### 2. Install EVolocityArduino
 
