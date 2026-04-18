@@ -31,8 +31,7 @@ EVolocity runs competitive engineering events where students design, build, and 
 
 ### 2. Install EVolocityArduino
 
-Download this repository as a ZIP:
-> **Code → Download ZIP**
+Download the latest release ZIP from the [Releases page](../../releases/latest).
 
 Then in the Arduino IDE go to **Sketch → Include Library → Add .ZIP Library** and select the downloaded file.
 
