@@ -12,6 +12,8 @@
         Flashing  = connected, but battery needs charging
 */
 
+// Uncomment the next line to print debug info to the Serial Monitor
+// #define EVOLOCITY_DEBUG
 #include <EVolocityArduino.h>
 
 // Set this number to match your handheld controller.

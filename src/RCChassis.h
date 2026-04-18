@@ -5,9 +5,12 @@
 #include <RF24.h>
 #include <Servo.h>
 
-// Uncomment the line below to print debug information to the Serial Monitor.
-// When commented out, all debug code is removed at compile time — zero overhead.
-// #define EVOLOCITY_DEBUG
+// To enable debug output to the Serial Monitor, add this line to the TOP of
+// your .ino file, BEFORE the #include:
+//
+//   #define EVOLOCITY_DEBUG
+//
+// When not defined, all debug code is removed at compile time — zero overhead.
 
 #ifdef EVOLOCITY_DEBUG
   #define EVPRINT(x)   Serial.print(x)
