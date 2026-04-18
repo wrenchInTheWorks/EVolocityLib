@@ -1,100 +1,41 @@
 # EVolocityArduino
 
-The official Arduino library for EVolocity solar car challenge projects.  
-One install covers all EVolocity hardware — students never need to install anything else.
+The official Arduino library for the [EVolocity](https://www.evolocity.com.au) solar car student challenge.
 
-## Classes
-
-| Class | Description |
-|-------|-------------|
-| `RCChassis` | Controls the motor board: RF24 radio receiver, L298N motor driver, servo steering, battery monitoring |
-
-## Installation
-
-Search for **EVolocityArduino** in the Arduino Library Manager.
-
-> **Requires the [RF24](https://github.com/nRF24/RF24) library** — install it from the Library Manager too.
+EVolocity runs competitive engineering events where students design, build, and race solar-powered vehicles. This library provides the Arduino building blocks for those vehicles — one install covers all EVolocity hardware projects so students never need to manage multiple libraries.
 
 ---
 
-## RCChassis
+## Getting Started
 
-### What it does for you automatically
+### 1. Install the RF24 dependency
 
-Call `chassis.waitForPacket()` at the top of `loop()` and the library handles:
+Open the Arduino IDE, go to **Sketch → Include Library → Manage Libraries**, search for **RF24** and install it.
 
-- **Receiving** the latest steering and speed packet from the handheld controller
-- **Checking the battery** level once per second
-- **Updating the status LED** on the board:
+### 2. Install EVolocityArduino
 
-| LED | Meaning |
-|-----|---------|
-| Solid ON | Connected to controller, battery OK |
-| Solid OFF | No signal from controller |
-| Flashing | Connected, but battery needs charging |
+Download this repository as a ZIP:
+> **Code → Download ZIP**
 
-Connection is considered lost after 10 consecutive gaps of more than 500 ms between packets.
+Then in the Arduino IDE go to **Sketch → Include Library → Add .ZIP Library** and select the downloaded file.
 
-### The simplest possible program
+### 3. Open an example
 
-```cpp
-#include <EVolocityArduino.h>
+Go to **File → Examples → EVolocityArduino** and choose the example for your project. Each example has comments explaining every line.
 
-RCChassis chassis;
+---
 
-void setup() {
-  chassis.begin();
-}
+## Documentation & Help
 
-void loop() {
-  chassis.waitForPacket();
-  chassis.setSteering(chassis.getSteeringAngle());
-  chassis.setMotor(chassis.getMotorSpeed(), chassis.getMotorDirection());
-}
-```
+Full documentation, wiring guides, and project walkthroughs are on the **[GitHub Wiki](../../wiki)**.  
+That's the best place to start if you're a student trying to understand how something works.
 
-### Full API
+---
 
-#### Setup & background tasks
-| Function | What it does |
-|----------|--------------|
-| `chassis.begin()` | Start everything up. Call once in `setup()`. |
-| `chassis.waitForPacket()` | Wait for a packet from the controller (up to 500 ms). Also checks battery and updates the status LED. Call at the top of `loop()`. |
+## Contributing
 
-#### Reading the controller
-| Function | Returns | Description |
-|----------|---------|-------------|
-| `chassis.getSteeringAngle()` | `int` 0 – 180 | Steering angle the controller is asking for |
-| `chassis.getMotorSpeed()` | `int` 0 – 255 | Motor speed the controller is asking for |
-| `chassis.getMotorDirection()` | `int` -1 / 0 / 1 | -1 = reverse, 0 = stop, 1 = forward |
-
-#### Controlling the car
-| Function | Description |
-|----------|-------------|
-| `chassis.setSteering(angle)` | Turn the wheels to the given angle (0 – 180) |
-| `chassis.setMotor(speed, direction)` | Set the motor speed (0 – 255) and direction (-1 / 0 / 1) |
-| `chassis.stop()` | Cut the motor immediately |
-
-#### Status
-| Function | Returns | Description |
-|----------|---------|-------------|
-| `chassis.isBatteryLow()` | `bool` | `true` when the battery needs charging |
-| `chassis.isControllerConnected()` | `bool` | `true` when radio packets are arriving |
-
-### Wiring (default pins)
-
-| Signal | Arduino Pin |
-|--------|-------------|
-| RF24 CE | 7 |
-| RF24 CSN | 9 |
-| Servo | 8 |
-| L298N ENA (PWM) | 3 |
-| L298N IN1 | 5 |
-| L298N IN2 | 6 |
-| Battery voltage divider | A0 |
-| Low-battery / status LED | A3 |
-
-Pin assignments can be changed by passing them to the `RCChassis` constructor — see [src/RCChassis.h](src/RCChassis.h) for details.
+If you're making changes to the library — fixing a bug, adding a class, updating CI — please read **[CONTRIBUTING.md](CONTRIBUTING.md)** first.  
+It covers the branching workflow, PR requirements, versioning, and how the CI checks work.
 
 ---
 
