@@ -1,19 +1,19 @@
 @echo off
-echo Installing EVolocityArduino dependencies...
+echo EVolocity Arduino Setup
+echo =======================
+echo.
+echo This will install the required libraries into your Arduino IDE.
 echo.
 
-where arduino-cli >nul 2>&1
+powershell -ExecutionPolicy Bypass -File "%~dp0install-dependencies.ps1"
+
 if %ERRORLEVEL% NEQ 0 (
-    echo ERROR: arduino-cli not found.
-    echo Download it from https://arduino.github.io/arduino-cli/latest/installation/
+    echo.
+    echo Setup failed. Please ask your teacher for help.
+    pause
     exit /b 1
 )
 
-arduino-cli lib install RF24
-if %ERRORLEVEL% NEQ 0 (
-    echo ERROR: Failed to install RF24.
-    exit /b 1
-)
-
 echo.
-echo All dependencies installed successfully.
+echo Setup complete^^! Open the Arduino IDE and you are ready to go.
+pause

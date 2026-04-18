@@ -16,7 +16,7 @@ EVolocity runs competitive engineering events where students design, build, and 
 
 ### 1. Install dependencies
 
-**Option A — script (recommended):** If you have the [Arduino CLI](https://arduino.github.io/arduino-cli/latest/installation/) installed, run the script for your operating system from the `tools/` folder:
+**Option A — script (recommended):** Run the script for your operating system from the `tools/` folder. No extra tools required — it downloads everything automatically.
 
 - **Windows:** double-click `tools/install-dependencies.bat`
 - **Mac / Linux:** run `bash tools/install-dependencies.sh` in a terminal
