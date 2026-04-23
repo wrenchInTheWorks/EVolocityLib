@@ -20,6 +20,13 @@
   #define EVPRINTLN(x)
 #endif
 
+// Status packet sent back to the controller on every received transmission.
+// The RCRemote class reads this automatically.
+struct ChassisStatus {
+    int  batteryADC;  // raw ADC reading (0–1023)
+    bool batteryLow;  // true = battery needs charging (mirrors slow-flash LED)
+};
+
 class RCChassis {
 public:
     // channel   — RF24 radio channel (0–125). Every car on the same track
@@ -45,7 +52,7 @@ public:
 
     // ── Call at the top of every loop() ────────────────────────────────────
     // Checks for a new packet from the handheld controller, reads the battery,
-    // and updates the status LED automatically.
+    // updates the status LED, and sends chassis status back to the controller.
     //   LED solid ON   = connected, battery OK
     //   LED solid OFF  = no signal (disconnected)
     //   LED slow flash = battery low — please charge!
@@ -61,7 +68,7 @@ public:
     void setSteering(int angle);              // 0 – 180 degrees
 
     // Basic motor control — good for simple code.
-    //   speed == 0   → hard brake
+    //   speed == 0     → hard brake
     //   direction == 0 → coast
     // Use the functions below for explicit control.
     void setMotor(int speed, int direction);  // speed 0–255, direction -1/0/1
@@ -77,13 +84,14 @@ public:
     bool isControllerConnected();  // true when radio packets are arriving
 
 private:
-    struct Packet {
+    struct ControlPacket {
         int servoPos;   // 0 – 180
         int motorSpeed; // 0 – 255
         int motorDir;   // -1, 0, +1
     };
 
     void _updateLED();
+    void _loadAckPayload();  // pre-loads status for next received packet
 
     RF24  _radio;
     Servo _servo;
@@ -91,7 +99,8 @@ private:
     uint8_t _channel;
     uint8_t _servoPin, _enaPin, _in1Pin, _in2Pin, _battPin, _ledPin;
 
-    Packet        _packet;
+    ControlPacket _packet;
+    ChassisStatus _status;
     bool          _battLow;
     bool          _connected;
     uint8_t       _missCount;

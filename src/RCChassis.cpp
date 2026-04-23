@@ -55,7 +55,12 @@ void RCChassis::begin() {
     _radio.setChannel(_channel);
     _radio.openReadingPipe(0, _address);
     _radio.setPALevel(RF24_PA_LOW);
+    _radio.enableAckPayload();
+    _radio.enableDynamicPayloads();
     _radio.startListening();
+
+    _status = {0, false};
+    _loadAckPayload();
 
     EVPRINTLN("RCChassis ready.");
 }
@@ -80,6 +85,7 @@ void RCChassis::update() {
         EVPRINT("Packet received — steering: "); EVPRINT(_packet.servoPos);
         EVPRINT("  speed: ");                    EVPRINT(_packet.motorSpeed);
         EVPRINT("  dir: ");                      EVPRINTLN(_packet.motorDir);
+        _loadAckPayload();
     } else {
         if (_missCount < _maxMisses) _missCount++;
         if (_missCount >= _maxMisses) _connected = false;
@@ -95,8 +101,13 @@ void RCChassis::update() {
         _lastBattCheckMs  = millis();
         int reading       = analogRead(_battPin);
         _battLow          = (reading < _battThreshold);
+        _status.batteryADC = reading;
+        _status.batteryLow = _battLow;
         EVPRINT("Battery ADC: "); EVPRINT(reading);
         EVPRINTLN(_battLow ? " — LOW" : " — OK");
+        EVPRINT("Status queued — ADC: "); EVPRINT(_status.batteryADC);
+        EVPRINTLN(_status.batteryLow ? "  battLow: true" : "  battLow: false");
+        _loadAckPayload();
     }
 
     _updateLED();
@@ -122,6 +133,12 @@ void RCChassis::_updateLED() {
         digitalWrite(_ledPin, LOW);
         _ledState = false;
     }
+}
+
+// ── ACK payload ──────────────────────────────────────────────────────────────
+
+void RCChassis::_loadAckPayload() {
+    _radio.writeAckPayload(0, &_status, sizeof(_status));
 }
 
 // ── Getters ──────────────────────────────────────────────────────────────────
