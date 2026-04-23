@@ -147,13 +147,15 @@ void RCChassis::setSteering(int angle) {
 }
 
 void RCChassis::setMotor(int speed, int direction) {
+    speed     = constrain(speed, 0, 255);
     direction = constrain(direction, -1, 1);
     EVPRINT("setMotor: speed="); EVPRINT(speed);
     EVPRINT(" dir=");            EVPRINTLN(direction);
 
-    if      (direction ==  1) forward(speed);
-    else if (direction == -1) reverse(speed);
-    else                      coast();
+    if      (speed == 0)      stop();
+    else if (direction == 0)  coast();
+    else if (direction == 1)  forward(speed);
+    else                      reverse(speed);
 }
 
 void RCChassis::forward(int speed) {
