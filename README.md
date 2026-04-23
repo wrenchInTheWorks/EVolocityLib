@@ -6,9 +6,10 @@ EVolocity runs competitive engineering events where students design, build, and 
 
 ## Projects
 
-| Project | Description |
-|---------|-------------|
-| RC Car Challenge | Students build and program a radio-controlled car using the `RCChassis` class |
+| Project | Class | Description |
+|---------|-------|-------------|
+| RC Car Challenge | `RCChassis` | Car-side board — radio receive, motor, steering, battery monitor |
+| RC Car Challenge | `RCRemote` | Handheld controller — joystick transmit, car status receive, battery monitor |
 
 ---
 
@@ -21,6 +22,7 @@ Open the Arduino IDE, go to **Sketch → Include Library → Manage Libraries** 
 | Library | Version |
 |---------|---------|
 | RF24 | latest |
+| Servo | latest |
 
 ### 2. Install EVolocityLib
 
